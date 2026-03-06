@@ -70,3 +70,4 @@ Dimension Tables
 
 \- Deploy warehouse on AWS
 
+\## Data Warehouse Architecture
