@@ -135,3 +135,41 @@ The warehouse uses a **Star Schema design**.
 `dim_service` – Cloud service information  
 `dim_region` – Cloud region data  
 `dim_time` – Date and time attributes
+
+## ETL Pipeline
+
+This project implements a simplified ETL pipeline to transform raw cloud usage logs into a structured data warehouse.
+
+### Extract
+Raw AWS usage logs are ingested into the staging table:
+
+`staging.aws_usage_logs`
+
+### Transform
+Data is cleaned and transformed into dimension tables:
+
+- dim_account
+- dim_service
+- dim_region
+- dim_time
+
+### Load
+The processed data is loaded into the fact table:
+
+`fact_cloud_usage`
+
+The transformation logic is implemented in:
+
+`sql/05_etl_pipeline.sql`
+
+AWS Logs
+   ↓
+Staging Tables
+   ↓
+Transformation Queries
+   ↓
+Dimension Tables
+   ↓
+Fact Table
+   ↓
+Analytics Queries
