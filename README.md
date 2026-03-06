@@ -1,73 +1,137 @@
-\# Cloud Data Warehouse Analytics Project
+# Cloud Data Warehouse Analytics Project
 
 
 
-\## Overview
+## Overview
 
 This project simulates a cloud cost analytics warehouse using PostgreSQL.
 
 
 
-\## Tech Stack
+## Tech Stack
 
-\- PostgreSQL
+- PostgreSQL
 
-\- SQL
+- SQL
 
-\- Data Warehouse Modeling
+- Data Warehouse Modeling
 
-\- Star Schema
+- Star Schema
+
+## Project Architecture
+
+This project simulates a **cloud usage analytics data warehouse** built using PostgreSQL.  
+Raw cloud usage logs are ingested, transformed into a **star schema warehouse**, and queried for analytics insights.
+
+### Architecture Flow
+
+AWS Usage Logs → Staging Layer → Data Warehouse (Star Schema) → Analytics Layer
 
 
 
-\## Architecture
+## Architecture
 
 Staging Layer → Data Warehouse → Analytics Layer
 
 
 
-\## Tables
+## Tables
 
 
 
 Fact Table
 
-\- fact\_cloud\_usage
+- fact_cloud_usage
 
 
 
 Dimension Tables
 
-\- dim\_account
+- dim_account
 
-\- dim\_service
+- dim_service
 
-\- dim\_region
+- dim_region
 
-\- dim\_time
-
-
-
-\## Example Analytics Questions
+- dim_time
 
 
 
-\- Which cloud services generate the highest cost?
-
-\- Which region consumes the most resources?
-
-\- How does cloud spending change monthly?
+## Example Analytics Questions
 
 
 
-\## Future Improvements
+- Which cloud services generate the highest cost?
+
+- Which region consumes the most resources?
+
+- How does cloud spending change monthly?
 
 
 
-\- Add Power BI dashboard
+## Future Improvements
 
-\- Automate ETL pipeline
 
-\- Deploy warehouse on AWS
 
-\## Data Warehouse Architecture
+- Add Power BI dashboard
+
+- Automate ETL pipeline
+
+- Deploy warehouse on AWS
+
+
+
+## Data Warehouse Architecture
+
+
+
+![Architecture](images/architecture_diagram.png)
+
+### Data Pipeline Layers
+
+**1. Data Ingestion Layer**
+- Raw AWS usage logs are collected from cloud billing exports.
+
+**2. Staging Layer**
+- Data is loaded into a staging table:
+  - `staging.aws_usage_logs`
+- This layer stores raw records before transformation.
+
+**3. Data Warehouse Layer**
+- Data is transformed into a **Star Schema** model.
+
+Fact Table:
+- `fact_cloud_usage`
+
+Dimension Tables:
+- `dim_account`
+- `dim_service`
+- `dim_region`
+- `dim_time`
+
+**4. Analytics Layer**
+- Business queries analyze cloud usage trends and cost insights.
+
+## Data Model
+
+The warehouse uses a **Star Schema design**.
+
+### Fact Table
+
+`fact_cloud_usage`
+
+| Column | Description |
+|------|-------------|
+| account_id | Cloud account identifier |
+| service_id | Cloud service used |
+| region_id | Cloud region |
+| usage_hours | Compute usage |
+| cost | Cost incurred |
+| usage_date | Date of usage |
+
+### Dimension Tables
+
+`dim_account` – Account details  
+`dim_service` – Cloud service information  
+`dim_region` – Cloud region data  
+`dim_time` – Date and time attributes
